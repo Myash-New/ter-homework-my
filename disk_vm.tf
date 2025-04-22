@@ -17,9 +17,15 @@ resource "yandex_compute_instance" "storage" {
   }
   boot_disk {
     initialize_params {
-      image_id = var.image_id
-    }
+      image_id = data.yandex_compute_image.my_image.id
+    }  
   }
+  timeouts {
+    create = "15m"
+    delete = "15m"
+  }
+
+
   network_interface {
     subnet_id = yandex_vpc_subnet.develop.id
     nat       = true

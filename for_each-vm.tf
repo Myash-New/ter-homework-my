@@ -12,9 +12,14 @@ resource "yandex_compute_instance" "db" {
 
   boot_disk {
     initialize_params {
-      image_id  = each.value.image_id
+       image_id  = each.value.image_id
+#      image_id  = try(each.value.image_id, data.yandex_compute_image.my_image.id)
       size      = each.value.disk_volume
     }
+  }
+  timeouts {
+    create = "15m"
+    delete = "15m"
   }
 
   network_interface {

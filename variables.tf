@@ -61,9 +61,17 @@ variable "web_core_fraction" {
   default     = 20
 }
 
-variable "image_id" {
-  type        = string
-  default     = "fd84b1mojb8650b9luqd"
+#variable "image_id" {
+#  type        = string
+#  default     = "fd84b1mojb8650b9luqd"
+#}
+
+data "yandex_compute_image" "my_image" {
+  family = "ubuntu-2204-lts"
+}
+
+output "my_image_id" {
+  value = data.yandex_compute_image.my_image.id
 }
 
 variable "db_platform_id" {
@@ -80,7 +88,7 @@ variable "db_vms" {
     disk_volume   = number
     core_fraction = optional(number, 20)
     nat           = optional(bool, true)
-    image_id      = optional(string, "fd84b1mojb8650b9luqd")
+    image_id      = optional(string)
     zone          = optional(string, "ru-central1-a")
     labels        = optional(map(string), {})
     metadata      = optional(map(string), {})
@@ -94,6 +102,7 @@ variable "db_vms" {
       core_fraction = 50
       nat           = true
       image_id      = "fd84b1mojb8650b9luqd"
+#      image_id      = data.yandex_compute_image.my_image.id
     },
     {
       vm_name       = "replica"
@@ -103,6 +112,7 @@ variable "db_vms" {
       core_fraction = 20
       nat           = true
       image_id      = "fd84b1mojb8650b9luqd"
+#      image_id      = data.yandex_compute_image.my_image.id
     }
   ]
 }
