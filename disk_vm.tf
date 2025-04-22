@@ -1,22 +1,23 @@
 resource "yandex_compute_disk" "disks" {
-  count        = 3
+  count        = var.disk_instance_count
   name         = "disk-${count.index + 1}"
-  size         = 1
+  size         = var.disk_instance_size
   type         = "network-hdd"
   zone         = var.default_zone
 }
 
 resource "yandex_compute_instance" "storage" {
-  name        = "storage"
-  platform_id = "standard-v3"
+  count       = var.storage_instance_count
+  name        = var.storage_instance_name
+  platform_id = var.storage_platform_id
   resources {
-    cores         = 2
-    memory        = 1
-    core_fraction = 20
+    cores         = var.storage_cores
+    memory        = var.storage_memory
+    core_fraction = var.storage_core_fraction
   }
   boot_disk {
     initialize_params {
-      image_id = "fd84b1mojb8650b9luqd"
+      image_id = var.image_id
     }
   }
   network_interface {
@@ -33,5 +34,4 @@ resource "yandex_compute_instance" "storage" {
       disk_id = secondary_disk.value.id
     }
   }
-  depends_on = [yandex_compute_instance.storage]
 }

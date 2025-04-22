@@ -2,7 +2,7 @@ resource "yandex_compute_instance" "db" {
   for_each = { for vm in var.db_vms : vm.vm_name => vm }
 
   name        = each.key
-  platform_id = "standard-v3"
+  platform_id = var.db_platform_id
 
   resources {
     cores         = each.value.cpu

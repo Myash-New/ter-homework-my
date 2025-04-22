@@ -30,6 +30,7 @@ variable "vpc_name" {
   default     = "develop"
   description = "VPC network&subnet name"
 }
+
 variable "web_instance_count" {
   type        = number
   default     = 2
@@ -60,10 +61,16 @@ variable "web_core_fraction" {
   default     = 20
 }
 
-variable "web_image_id" {
+variable "image_id" {
   type        = string
   default     = "fd84b1mojb8650b9luqd"
 }
+
+variable "db_platform_id" {
+  type        = string
+  default     = "standard-v3"
+}
+
 
 variable "db_vms" {
   type = list(object({
@@ -103,4 +110,46 @@ variable "vms_ssh_root_key" {
   type        = string
   default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDk4/+bLOZvAX1LH+uQDvG4RrQNFquSpO43XIWyZ0P95nar43cCEQ1fT58bXcJbtuxTLmf8ifKUIS1lQcR11eNTkSKhKHlgFGEhF+urLBkrI4rKRJtdt3Q0xUG1zTXs3FeHkU65PxXzDsmqI8UEWqBcNsn0CrPHhWO6OwjfCNUmHHgRudEn3QRndq6djQWWs4+3FgcEhuzPiXLES/ma66mTUmd+ApuGSEwXScBysWQIaW5t1wKB+sGq26V/Vt9jWMu05dQWAHqf/JjsXd+vV6ygjnSLiei60D/KCURqsxAsAlk1f3iGiMFtQVm1XPpRrzwU8E7QcgYFL8w8xYkAofR9B9uN30Ni23pCfxyGTakh1B32cOzHNps5ZGJ7rEdOCj/f1rpz9b6mMw2ExrbBJYtKcCCwBlqcU6pTDqxU0QGpDpIpV66BasDnKE6ZZeGO1WpXm5EoOXwFzLilvNpwxQMl04U0WQidS5wbjaoU15yfNLHmG0BKXQal8aZB6xoWudc="
   description = "ssh-keygen -t ed25519"
+}
+
+variable "storage_instance_count" {
+  type        = number
+  default     = 1
+}
+
+
+variable "storage_instance_name" {
+  type        = string
+  default     = "storage"
+}
+
+variable "storage_platform_id" {
+  type        = string
+  default     = "standard-v3"
+}
+
+variable "storage_cores" {
+  type        = number
+  default     = 2
+}
+
+variable "storage_memory" {
+  type        = number
+  default     = 1
+}
+
+variable "storage_core_fraction" {
+  type        = number
+  default     = 20
+}
+
+variable "disk_instance_count" {
+  type        = number
+  default     = 3
+}
+
+
+variable "disk_instance_size" {
+  type        = number
+  default     = 1
 }
