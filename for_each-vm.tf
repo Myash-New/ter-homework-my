@@ -12,8 +12,9 @@ resource "yandex_compute_instance" "db" {
 
   boot_disk {
     initialize_params {
-       image_id  = each.value.image_id
-#      image_id  = try(each.value.image_id, data.yandex_compute_image.my_image.id)
+#     image_id  = each.value.image_id
+      image_id  = data.yandex_compute_image.my_image.id
+#     image_id  = try(each.value.image_id, data.yandex_compute_image.my_image.id)
       size      = each.value.disk_volume
     }
   }
@@ -29,7 +30,6 @@ resource "yandex_compute_instance" "db" {
 
    metadata = {
     ssh-keys = "ubuntu:${local.ssh_public_key}"
-
   }
 
   depends_on = [yandex_vpc_subnet.develop]

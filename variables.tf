@@ -68,17 +68,13 @@ variable "web_core_fraction" {
 
 data "yandex_compute_image" "my_image" {
   family = "ubuntu-2204-lts"
-}
-
-output "my_image_id" {
-  value = data.yandex_compute_image.my_image.id
+  folder_id = "standard-images"
 }
 
 variable "db_platform_id" {
   type        = string
   default     = "standard-v3"
 }
-
 
 variable "db_vms" {
   type = list(object({
@@ -101,8 +97,6 @@ variable "db_vms" {
       disk_volume   = 20
       core_fraction = 50
       nat           = true
-      image_id      = "fd84b1mojb8650b9luqd"
-#      image_id      = data.yandex_compute_image.my_image.id
     },
     {
       vm_name       = "replica"
@@ -111,8 +105,6 @@ variable "db_vms" {
       disk_volume   = 10
       core_fraction = 20
       nat           = true
-      image_id      = "fd84b1mojb8650b9luqd"
-#      image_id      = data.yandex_compute_image.my_image.id
     }
   ]
 }
