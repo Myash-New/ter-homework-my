@@ -17,7 +17,7 @@ output "vm_list" {
       }
     ],
   [
-      for vm in yandex_compute_instance.storage :
+      for vm in [yandex_compute_instance.storage] :
       {
         name = yandex_compute_instance.storage.name
         id   = yandex_compute_instance.storage.id
