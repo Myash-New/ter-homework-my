@@ -18,15 +18,18 @@ resource "local_file" "ansible_inventory" {
         fqdn        = vm.fqdn
       }  
     ]
-  storages = [
-       for vm in yandex_compute_instance.storage :
-      {
-        vm_name     = try(vm.name, "unknown")
-        external_ip = try(vm.network_interface[0].nat_ip_address, "no_ip")
-        fqdn        = try(vm.fqdn, "no_fqdn")
-      } 
-    ]
-  })
+  storages = yandex_compute_instance.storage
+  
+#  [
+#       for vm in yandex_compute_instance.storage :
+#      {
+#        vm_name     = vm.name
+#        external_ip = vm.network_interface[0].nat_ip_address
+#        fqdn        = vm.fqdn
+#      } 
+#    ]
+  }
+  )
   depends_on = [
     yandex_compute_instance.web,
     yandex_compute_instance.db,
