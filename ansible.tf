@@ -5,20 +5,20 @@ resource "local_file" "ansible_inventory" {
     webservers = [
       for vm in yandex_compute_instance.web :
       {
-        vm_name     = try(vm.name, "unknown")
-        external_ip = try(vm.network_interface[0].nat_ip_address, "no_ip")
-        fqdn        = try(vm.fqdn, "no_fqdn")
+        vm_name     = vm.name
+        external_ip = vm.network_interface[0].nat_ip_address
+        fqdn        = vm.fqdn
       }
     ]
     databases = [
       for vm in yandex_compute_instance.db :
       {
-        vm_name     = try(vm.name, "unknown")
-        external_ip = try(vm.network_interface[0].nat_ip_address, "no_ip")
-        fqdn        = try(vm.fqdn, "no_fqdn")
-      }
+        vm_name     = vm.name
+        external_ip = vm.network_interface[0].nat_ip_address
+        fqdn        = vm.fqdn
+      }  
     ]
-    storages = [
+  storages = [
        for vm in yandex_compute_instance.storage :
       {
         vm_name     = try(vm.name, "unknown")

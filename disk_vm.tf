@@ -7,7 +7,6 @@ resource "yandex_compute_disk" "disks" {
 }
 
 resource "yandex_compute_instance" "storage" {
-  count       = var.storage_instance_count
   name        = var.storage_instance_name
   platform_id = var.storage_platform_id
   resources {
@@ -20,11 +19,6 @@ resource "yandex_compute_instance" "storage" {
       image_id = data.yandex_compute_image.my_image.id
     }  
   }
-  timeouts {
-    create = "15m"
-    delete = "15m"
-  }
-
 
   network_interface {
     subnet_id = yandex_vpc_subnet.develop.id

@@ -114,12 +114,6 @@ variable "vms_ssh_root_key" {
   description = "ssh-keygen -t ed25519"
 }
 
-variable "storage_instance_count" {
-  type        = number
-  default     = 1
-}
-
-
 variable "storage_instance_name" {
   type        = string
   default     = "storage"
@@ -149,7 +143,6 @@ variable "disk_instance_count" {
   type        = number
   default     = 3
 }
-
 
 variable "disk_instance_size" {
   type        = number
